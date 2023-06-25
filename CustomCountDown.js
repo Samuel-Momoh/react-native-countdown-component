@@ -186,7 +186,7 @@ class CustomCountDown extends React.Component {
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <Text style={[
           styles.separatorTxt,
-          {fontSize: size * 1.2},
+          {fontSize: size * 1.1},
           separatorStyle,
         ]}>
           {':'}
@@ -260,6 +260,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 2,
     alignItems: 'center',
     justifyContent: 'center',
+    // justifyContent:"flex-end"
   },
   doubleDigitCont: {
     marginRight: 8,
@@ -280,12 +281,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   labelCon:{
+    // marginBottom: 8,
     backgroundColor: "#2667B1",
-     width: 35,
+     width: 46,
       height: 24,
        justifyContent:"center",
         alignItems:'center',
-        borderRadius: 4
+        borderRadius: 4,
+        zIndex: 9
     }
 });
 
