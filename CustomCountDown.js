@@ -150,11 +150,24 @@ class CustomCountDown extends React.Component {
     );
   };
 
-  renderLabel = label => {
+// Color Customize method
+timeBaseColor =  (digits) =>{
+  switch(digits){
+    case "01":
+      return "#F89F31"
+      case "00":
+        return "#EF5A5A"
+        default:
+          return "#2667B1"
+  }
+}
+
+
+  renderLabel = (label, color) => {
     const {timeLabelStyle, size} = this.props;
     if (label) {
       return (
-        <View style={[{...styles.labelCon, backgroundColor: label == "Days" || label == "Secs"? "#2667B1" : "#696969" }]}>
+        <View style={[{...styles.labelCon, backgroundColor: color }]}>
     <Text style={[
           styles.timeTxt,
           {fontSize: size / 1.8},
@@ -168,10 +181,10 @@ class CustomCountDown extends React.Component {
     }
   };
 
-  renderDoubleDigits = (label, digits) => {
+  renderDoubleDigits = (label, digits, color) => {
     return (
       <View style={styles.doubleDigitCont}>
-         {this.renderLabel(label)}
+         {this.renderLabel(label, color)}
         <View style={styles.timeInnerCont}>
           {this.renderDigit(digits)}
         </View>
@@ -201,19 +214,19 @@ class CustomCountDown extends React.Component {
     const {days, hours, minutes, seconds} = this.getTimeLeft();
     const newTime = sprintf('%02d:%02d:%02d:%02d', days, hours, minutes, seconds).split(':');
     const Component = this.props.onPress ? TouchableOpacity : View;
-
+   var color = this.timeBaseColor(newTime[0])
     return (
       <Component
         style={styles.timeCont}
         onPress={this.props.onPress}
       >
-        {timeToShow.includes('D') ? this.renderDoubleDigits(timeLabels.d, newTime[0]) : null}
+        {timeToShow.includes('D') ? this.renderDoubleDigits(timeLabels.d, newTime[0], color) : null}
         {showSeparator && timeToShow.includes('D') && timeToShow.includes('H') ? this.renderSeparator() : null}
-        {timeToShow.includes('H') ? this.renderDoubleDigits(timeLabels.h, newTime[1]) : null}
+        {timeToShow.includes('H') ? this.renderDoubleDigits(timeLabels.h, newTime[1], "#696969") : null}
         {showSeparator && timeToShow.includes('H') && timeToShow.includes('M') ? this.renderSeparator() : null}
-        {timeToShow.includes('M') ? this.renderDoubleDigits(timeLabels.m, newTime[2]) : null}
+        {timeToShow.includes('M') ? this.renderDoubleDigits(timeLabels.m, newTime[2], "#696969") : null}
         {showSeparator && timeToShow.includes('M') && timeToShow.includes('S') ? this.renderSeparator() : null}
-        {timeToShow.includes('S') ? this.renderDoubleDigits(timeLabels.s, newTime[3]) : null}
+        {timeToShow.includes('S') ? this.renderDoubleDigits(timeLabels.s, newTime[3], color) : null}
       </Component>
     );
   };
